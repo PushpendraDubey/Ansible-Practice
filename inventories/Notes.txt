@@ -1,0 +1,8 @@
+In Ansible, an inventory is the list of target machines (hosts or groups of hosts) that Ansible manages.
+It tells Ansible what systems to connect to and what variables to use when running playbooks.
+In the Inventory file(ini fille) we can list multiple hosts that could be used while performin g any action on all the hosts at once.
+We can also create groups (e.g. centos(Group having all the centos machines), ubuntu(all the ubuntu machines) this helps when we want to run certain actions for same kind of hosts.
+COMMANDS USED:
+  1. ansible all -m ping ( here all represents all the mentioned hosts in hosts.ini file and -m represents module used i.e. ping in this case)
+  2. ansible centos --list-hosts
+  3. 
