@@ -1,3 +1,4 @@
+INVENTORIES:-
 In Ansible, an inventory is the list of target machines (hosts or groups of hosts) that Ansible manages.
 It tells Ansible what systems to connect to and what variables to use when running playbooks.
 In the Inventory file(ini fille) we can list multiple hosts that could be used while performin g any action on all the hosts at once.
@@ -5,4 +6,18 @@ We can also create groups (e.g. centos(Group having all the centos machines), ub
 COMMANDS USED:
   1. ansible all -m ping ( here all represents all the mentioned hosts in hosts.ini file and -m represents module used i.e. ping in this case)
   2. ansible centos --list-hosts
-  3. 
+  3. ansible ubuntu --list-hosts
+
+MODULES:- 
+Ansible modules are the building blocks of Ansible automation.
+They are units of work (small programs) that Ansible runs on your managed hosts to perform tasks such as installing packages, managing files, configuring services, interacting with cloud providers, etc.
+EX :- System modules : user, group, service, cron
+      File Modules : copy, file, template, unarchive
+      Package Mangement Modules : yum, apt, apk, dnf, pip
+      Database Modules : mysql_db, mysql_user, postgresql_user, postgresql_db
+      Networking modules : ios_config, netconf_config
+      Utility Modules : assert, wait_for, debug
+
+To see Available modules : ansible-doc -l         # List all modules
+                           ansible-doc <module>   # Show details of a specific module
+
