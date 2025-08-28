@@ -20,4 +20,6 @@ EX :- System modules : user, group, service, cron
 
 To see Available modules : ansible-doc -l         # List all modules
                            ansible-doc <module>   # Show details of a specific module
+Commands to run : ansible all -m file -a 'path=/tmp/test state touch mode=600'
+                  ansible all -m copy -a 'src=/tmp/abc.txt dest=/tmp/abc.txt'
 
