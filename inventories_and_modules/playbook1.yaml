@@ -1,0 +1,15 @@
+- name: Install Apache using yum module
+  hosts: webservers
+  tasks:
+    - name: Install apache
+      yum:
+        name: httpd
+        state: present
+
+    - name: Ensure apache is running
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+# Here yum and service are modules with arguments
