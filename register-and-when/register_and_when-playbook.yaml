@@ -1,0 +1,82 @@
+- name: Check uptime
+  hosts: all
+  tasks:
+    - name: Run uptime command
+      command: uptime
+      register: uptime_output
+
+    - name: Show uptime result
+      debug:
+        var: uptime_output.stdout
+
+# uptime_output stores everything returned by the task.
+# Common attributes:
+# .stdout → Standard output (most used)
+# .stderr → Standard error
+# .rc → Return code (0 = success)
+# .stdout_lines → Output split into list of lines
+
+- name: Install nginx
+  hosts: webservers
+  tasks:
+    - name: Install nginx package
+      yum:
+        name: nginx
+        state: present
+      register: install_result
+
+    - name: Check if it changed
+      debug:
+        var: install_result.changed    #changed → true if package was installed  failed → if task failed  msg → message from Ansible
+
+#Using when with register
+- name: Example of conditional
+  hosts: all
+  tasks:
+    - name: Check if file exists
+      stat:
+        path: /etc/passwd
+      register: file_info
+
+    - name: Display file size if exists
+      debug:
+        msg: "Size of file is {{ file_info.stat.size }}"
+      when: file_info.stat.exists  #Condition when: file_info.stat.exists ensures debug runs only if the file exists
+
+#Register loop
+- name: Check multiple files
+  hosts: all
+  tasks:
+    - name: Check files
+      stat:
+        path: "{{ item }}"
+      loop:
+        - /etc/passwd
+        - /etc/shadow
+      register: file_checks
+
+    - name: Show all results
+      debug:
+        var: file_checks.results
+
+- name: patch installation
+  hosts: linux
+  tasks:
+    - name: Exploring register
+      command: hostname -c
+      when:
+        - ansible_distribution == "CentOS"
+        - ansible_distribution_major_version | int >= 8
+      register: command_register
+      
+    - name: Install patch when changed
+      yum:
+        name: patch
+        state: present
+      when: command_register is changed
+
+    - name: Install patch when skipped
+      apt:
+        name: patch
+        state: present
+      when: command_register is skipped
