@@ -28,3 +28,11 @@ Other Modules:
 2. pause : Pause a playbook for a set amount of time or until a prompt is acknowledged, we can either use seconds argument or prompt argument
 3. Assemble : Allows conf files to be broken into segments and concatenated to form a destination file.
 4. add_host : create new inventory groups and targets on fly, used when resources are created during execution 
+
+
+REGISTER:-
+In Ansible, register is used to store the output of a task into a variable, so you can use it later in the playbook.
+Think of it as capturing command/module output into a variable.
+
+LOOPING:-
+
